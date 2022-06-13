@@ -32,5 +32,15 @@ public class BusinessLogic {
 		return phoneList.get(0);
 	}
 	
+	public void addItem(Smartphone smp){
+		phoneList.add(new Smartphone(smp.getCompany(), 
+				smp.getVariant(),
+				smp.getModel(),
+				smp.getCamerapix(),
+				smp.getStorage(),
+				smp.getPriceValue(),
+				smp.getPriceCurrency()));
+	}
+	
 	
 }
