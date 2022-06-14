@@ -8,7 +8,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BusinessLogic {
-
+	
+	
+	
+	
+	
+/*	
 	@Autowired
 	Smartphone smph;
 	List<Smartphone> phoneList = new ArrayList<>();
@@ -41,6 +46,8 @@ public class BusinessLogic {
 				smp.getPriceValue(),
 				smp.getPriceCurrency()));
 	}
+	
+*/
 	
 	
 }
