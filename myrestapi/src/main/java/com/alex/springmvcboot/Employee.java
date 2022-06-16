@@ -14,9 +14,10 @@ public class Employee {
 	private String jobTitle;
 	private int salary;
 	private Date birthDate;
-
-	public Employee() {
-		Faker faker = new Faker();
+	
+	Faker faker = new Faker();
+	
+	public Employee() {		
 		this.empId = faker.code().isbn13(false);
 		this.name = faker.name().name();
 		this.jobTitle = faker.job().title();
