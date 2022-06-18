@@ -24,9 +24,24 @@ public class EmployeeController {
 		return "<h1>Employee List</h1>";
 	}
 
+	/*
+	 * // This does not return ResponseEntity
+	 * 
+	 * @GetMapping("/select") public List<Employee> findAll() { return
+	 * blogic.getEmpList(); }
+	 */
+
+	// This does not return ResponseEntity
 	@GetMapping("/select")
-	public List<Employee> findAll() {
-		return blogic.getEmpList();
+	public ResponseEntity<List<Employee>> findAll() {
+		
+		List<Employee> empList = blogic.getEmpList();
+		
+		if (empList.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(empList, HttpStatus.OK);
+		}
 	}
 
 	@GetMapping("/select/{empid}")
@@ -43,9 +58,9 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/upsert")
-	public void addEmp(@RequestBody Employee emp) {
+	public ResponseEntity<Employee> addEmp(@RequestBody Employee emp) {
 		blogic.addEmp(emp);
-		return;
+		return new ResponseEntity<>(emp, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/upsert/{empid}")
