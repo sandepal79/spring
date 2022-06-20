@@ -1,5 +1,9 @@
 # spring
 
+DB details:
+
+Create schema company. Inside company schema we create below table
+
 CREATE TABLE `employee_details` (
 
   `emp_id` int NOT NULL,
