@@ -1,77 +1,109 @@
 package com.alex.springmvcboot;
 
 import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-import com.github.javafaker.Faker;
 
-@Component
+@Entity
+@NoArgsConstructor
+@Table(name = "employee_details")
+
 public class Employee {
 
-	private String empId;
+	@Id
+	@Column(name = "emp_id")
+	@NonNull
+	private Long empId;
+	
+	@Column(name = "name")
+	@NonNull
 	private String name;
+	
+	@Column(name = "job_title")
+	@NonNull
 	private String jobTitle;
+	
+	@Column(name = "salary")
+	@NonNull
 	private int salary;
+	
+	@Column(name = "birth_date")
+	@NonNull
 	private Date birthDate;
 	
-	Faker faker = new Faker();
-	
-	public Employee() {		
-		this.empId = faker.code().isbn13(false);
-		this.name = faker.name().name();
-		this.jobTitle = faker.job().title();
-		this.salary = (int) Math.round(Float.parseFloat(faker.commerce().price().replace(',', '.')) * 1000);
-		this.birthDate = new java.sql.Date(faker.date().birthday(25, 50).getTime());
 
+	public Employee() {		
 	}
 
-	public Employee(String empId, String name, String jobTitle, int salary, Date date) {
+
+	public Employee(@NonNull Long empId, @NonNull String name, @NonNull String jobTitle, @NonNull int salary,
+			@NonNull Date birthDate) {
 		this.empId = empId;
 		this.name = name;
 		this.jobTitle = jobTitle;
 		this.salary = salary;
-		this.birthDate = date;
+		this.birthDate = birthDate;
 	}
 
-	public String getEmpId() {
+
+	public Long getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(String empId) {
+
+	public void setEmpId(Long empId) {
 		this.empId = empId;
 	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public String getJobTitle() {
 		return jobTitle;
 	}
 
+
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
 	}
+
 
 	public int getSalary() {
 		return salary;
 	}
 
+
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
+
 
 	public Date getBirthDate() {
 		return birthDate;
 	}
 
+
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
+	
+	
+
+
+	
 
 }

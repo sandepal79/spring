@@ -1,57 +1,54 @@
 package com.alex.springmvcboot;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 
 @Service
 public class BusinessLogic {
 
 	@Autowired
-	InitEmployees initemp;
+	EmployeeRepository empRepository;
+	
+
 
 	public BusinessLogic() {
 	}
 
 	public List<Employee> getEmpList() {
-		return initemp.getEmpList();
+		return empRepository.findAll();
 	}
 	
-	public List<Employee> getEmp(String empid) {
-		return initemp.empList.stream().filter(i -> empid.equals(i.getEmpId())).collect(Collectors.toList());
+	public Employee getEmp(Long empid) {
+		return empRepository.findByEmpId(empid);
 	}
 
-	public void addEmp(Employee emp) {
-		initemp.empList.add(
-				new Employee(emp.getEmpId(), emp.getName(), emp.getJobTitle(), emp.getSalary(), emp.getBirthDate()));
+	public Employee addEmp(Employee emp) {
+		return empRepository.save(emp);
 	}
 
-	public void updateEmp(String empid, Employee emp) {
-		Stream<Employee> str = initemp.empList.stream();
-		if (str.noneMatch(i -> empid.equals(i.getEmpId()))) {
-			System.out.println("No match");
-		} else {
-			str.filter(i -> empid.equals(i.getEmpId())).forEach(i -> {
-				i.setName(emp.getName());
-				i.setJobTitle(emp.getJobTitle());
-				i.setSalary(emp.getSalary());
-				i.setBirthDate(emp.getBirthDate());
-			});
-		}
+	public Employee updateEmp(Long empid, Employee emp) {
+				
+		Employee emprepo = empRepository.findByEmpId(empid);
+		
+		emprepo.setEmpId(emp.getEmpId());
+		emprepo.setName(emp.getName());
+		emprepo.setJobTitle(emp.getJobTitle());
+		emprepo.setSalary(emp.getSalary());
+		emprepo.setBirthDate(emp.getBirthDate());
+		
+		return empRepository.save(emp);	
 
 	}
 
-	public void deleteEmp(String empid) {
+	public void deleteEmp(Long empid) {
 
-		Stream<Employee> str = initemp.empList.stream();
-		if (str.noneMatch(i -> empid.equals(i.getEmpId()))) {
-			System.out.println("No match");
-		} else {
-			initemp.empList.removeIf(i -> empid.equals(i.getEmpId()));
-		}
+		Employee emprepo = empRepository.findByEmpId(empid);		
+		empRepository.delete(emprepo);
 
 	}
 
