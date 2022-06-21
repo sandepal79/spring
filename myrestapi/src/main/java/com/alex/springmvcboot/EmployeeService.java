@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class BusinessLogic {
+public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository empRepository;
 	
 
 
-	public BusinessLogic() {
+	public EmployeeService() {
 	}
 
 	public List<Employee> getEmpList() {

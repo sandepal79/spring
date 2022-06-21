@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class MyRestAPIApplication {
+public class EmployeeAPI {
 		
 	public static void main(String[] args) {
-		SpringApplication.run(MyRestAPIApplication.class, args);				
+		SpringApplication.run(EmployeeAPI.class, args);				
 	}	
 
 }

@@ -20,7 +20,7 @@ import com.alex.springmvcboot.exception.RecordNotFoundException;
 public class EmployeeController {
 
 	@Autowired
-	BusinessLogic blogic;
+	EmployeeService empservice;
 
 	@GetMapping("/about")
 	public String about() {
@@ -31,7 +31,7 @@ public class EmployeeController {
 	@GetMapping("/employee")
 	public ResponseEntity<List<Employee>> findAll() {
 		
-		List<Employee> empList = blogic.getEmpList();
+		List<Employee> empList = empservice.getEmpList();
 		
 		if (empList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -43,7 +43,7 @@ public class EmployeeController {
 	@GetMapping("/employee/{empid}")
 	public ResponseEntity<Employee> findOne(@PathVariable String empid) {
 
-		Employee employee = blogic.getEmp(Long.parseLong(empid));
+		Employee employee = empservice.getEmp(Long.parseLong(empid));
 
 		if (employee == null) {			
 			throw new RecordNotFoundException("Invalid employee id : " + empid);
@@ -58,7 +58,7 @@ public class EmployeeController {
 			
 
 		 try {
-			 Employee employee = blogic.addEmp(emp);
+			 Employee employee = empservice.addEmp(emp);
 		      return new ResponseEntity<>(employee, HttpStatus.CREATED);
 		    } catch (Exception e) {
 		    	e.printStackTrace();
@@ -70,12 +70,12 @@ public class EmployeeController {
 	@PutMapping("/employee/{empid}")
 	public ResponseEntity<Employee> updateEmp(@PathVariable String empid, @RequestBody Employee empObj) {
 		
-		return new ResponseEntity<>(blogic.updateEmp(Long.parseLong(empid), empObj), HttpStatus.OK);
+		return new ResponseEntity<>(empservice.updateEmp(Long.parseLong(empid), empObj), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/employee/{empid}")
 	public ResponseEntity<Object> delEmp(@PathVariable String empid) {
-		blogic.deleteEmp(Long.parseLong(empid));
+		empservice.deleteEmp(Long.parseLong(empid));
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
